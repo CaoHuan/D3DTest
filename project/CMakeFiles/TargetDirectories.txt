@@ -1,5 +1,0 @@
-E:/Pro/D3D/project/CMakeFiles/ALL_BUILD.dir
-E:/Pro/D3D/project/CMakeFiles/Cube.dir
-E:/Pro/D3D/project/CMakeFiles/TutorialCreate.dir
-E:/Pro/D3D/project/CMakeFiles/ZERO_CHECK.dir
-E:/Pro/D3D/project/CMakeFiles/colorTriangle.dir

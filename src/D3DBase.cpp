@@ -8,11 +8,7 @@ D3DBase::D3DBase()
 
 D3DBase::~D3DBase()
 {
-	if (_pDevice)
-	{
-		_pDevice->Release();
-		_pDevice = 0;
-	}
+	ReleaseD3DObject(_pDevice);
 }
 
 LRESULT CALLBACK D3DBase::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -77,7 +73,7 @@ bool D3DBase::Setup(HINSTANCE hInstance, int width, int height, bool windowed, D
 	}
 
 	HWND hwnd = 0;
-	hwnd = ::CreateWindow(L"d3d", L"d3d3", WS_EX_TOPMOST | WS_POPUP,
+	hwnd = ::CreateWindow(L"d3d", L"d3d3", WS_OVERLAPPEDWINDOW,
 		0, 0, width, height, 0, 0, hInstance, 0);
 	if (!hwnd)
 	{
@@ -148,6 +144,6 @@ bool D3DBase::Setup(HINSTANCE hInstance, int width, int height, bool windowed, D
 			return false;
 		}
 	}
-	d3d9->Release();
+	ReleaseD3DObject(d3d9);
 	return true;
 }

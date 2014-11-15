@@ -1,8 +1,11 @@
 # D3D个人练习管理
+cmake_minimum_required(VERSION 2.6)
+SET( CMAKE_BUILD_TYPE Debug )
+include(macros.cmake)
 #解决方案名
 project(Test)
-SET( CMAKE_BUILD_TYPE Debug )
-cmake_minimum_required(VERSION 2.6)
+
+
 
 # 项目生成调试信息
 set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od /Oy- /MTd")
@@ -11,8 +14,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od /Oy- /MTd")
 # 可以使用文件夹
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-
-#在公司时用这个路径
+#在公司时用这个路径   TODO 用依赖包的形式做？
 set(INC_DIR "D:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include" )
 set(LIB_DIR "D:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86")   
 
@@ -34,14 +36,16 @@ add_definitions(-DUNICODE -D_UNICODE)
 set(BASE D3DBase.h D3DBase.cpp)
 
 # 添加一个项目
-add_executable(TutorialCreate WIN32 ${BASE} init.cpp)
-set(projects TutorialCreate)
+addProject(colorTriangle ${BASE} colorTriangle.cpp)
+addProject(triangle ${BASE} triangle.cpp)
+addProject(tutorialCreate ${BASE} init.cpp)
+addProject(cube ${BASE} cube.cpp)
+addProject(teapot ${BASE} teapot.cpp)
 
-
-add_executable(Cube WIN32 ${BASE} cube.cpp)
-set(projects ${projects} Cube)
-
-add_executable(colorTriangle WIN32 ${BASE} colorTriangle.cpp)
-set(projects ${projects} colorTriangle)
+# 用file命令， 可以通配所有合适的文件， 而在其他的时候， 只是匹配第一个符合的文件
+#file(GLOB test *.cpp)
 
 set_target_properties(${projects} PROPERTIES FOLDER test)
+
+
+

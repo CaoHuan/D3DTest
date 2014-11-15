@@ -30,3 +30,13 @@ private:
 protected:
 	IDirect3DDevice9* _pDevice;
 };
+
+template<typename T>
+void ReleaseD3DObject(T* p)
+{
+	if (p)
+	{
+		p->Release();
+		p = NULL;
+	}
+}

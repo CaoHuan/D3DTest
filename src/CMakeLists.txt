@@ -36,11 +36,13 @@ add_definitions(-DUNICODE -D_UNICODE)
 set(BASE D3DBase.h D3DBase.cpp)
 
 # 添加一个项目
-addProject(colorTriangle ${BASE} colorTriangle.cpp)
-addProject(triangle ${BASE} triangle.cpp)
-addProject(tutorialCreate ${BASE} init.cpp)
-addProject(cube ${BASE} cube.cpp)
-addProject(teapot ${BASE} teapot.cpp)
+addProject(colorTriangle colorTriangle.cpp)
+addProject(triangle triangle.cpp)
+addProject(tutorialCreate init.cpp)
+addProject(cube cube.cpp)
+addProject(teapot teapot.cpp)
+addProject(spotLight spotLight.cpp)
+
 
 # 用file命令， 可以通配所有合适的文件， 而在其他的时候， 只是匹配第一个符合的文件
 #file(GLOB test *.cpp)

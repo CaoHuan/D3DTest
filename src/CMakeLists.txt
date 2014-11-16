@@ -42,7 +42,7 @@ addProject(tutorialCreate init.cpp)
 addProject(cube cube.cpp)
 addProject(teapot teapot.cpp)
 addProject(spotLight spotLight.cpp)
-
+addProject(pointLight pointLight.cpp)
 
 # 用file命令， 可以通配所有合适的文件， 而在其他的时候， 只是匹配第一个符合的文件
 #file(GLOB test *.cpp)

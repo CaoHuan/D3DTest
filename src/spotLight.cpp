@@ -8,19 +8,6 @@ public:
 		, worlds_()
 		, matrls_()
 		, spot_()
-		, WHITE(D3DCOLOR_XRGB(255,255,255) )
-		, BLACK(D3DCOLOR_XRGB(0, 0, 0) )
-		, RED(D3DCOLOR_XRGB(255, 0, 0) )
-		, GREEN(D3DCOLOR_XRGB(0, 255, 0) )
-		, BLUE(D3DCOLOR_XRGB(0, 0, 255) )
-		, YELLOW(D3DCOLOR_XRGB(255, 255, 0) )
-		, CYAN(D3DCOLOR_XRGB(0, 255, 255) )
-		, MAGENTA(D3DCOLOR_XRGB(255, 0, 255) )
-		, WHITE_MTRL(InitMtrl(WHITE, WHITE, WHITE, BLACK, 2.0f) )
-		, RED_MTRL(InitMtrl(RED, RED, RED, BLACK, 2.0f) )
-		, GREEN_MTRL(InitMtrl(GREEN, GREEN, GREEN, BLACK, 2.0f) )
-		, BLUE_MTRL(InitMtrl(BLUE, BLUE, BLUE, BLACK, 2.0f) )
-		, YELLOW_MTRL(InitMtrl(YELLOW, YELLOW, YELLOW, BLACK, 2.0f) )
 	{
 		ZeroMemory(objects_, 4 * sizeof(ID3DXMesh));
 	}
@@ -142,56 +129,6 @@ public:
 		_pDevice->EndScene();
 		_pDevice->Present(0, 0, 0, 0);
 	}
-
-private:
-	D3DMATERIAL9 InitMtrl(D3DXCOLOR a, D3DXCOLOR d, D3DXCOLOR s,
-		D3DXCOLOR e, float p)
-	{
-		D3DMATERIAL9 mtrl;
-		mtrl.Ambient = a;
-		mtrl.Diffuse = d;
-		mtrl.Specular = s;
-		mtrl.Emissive = e;
-		mtrl.Power = p;
-		return mtrl;
-	}
-
-	D3DLIGHT9 InitSpotLight(D3DXVECTOR3* position, D3DXVECTOR3* direction, D3DXCOLOR* color)
-	{
-		D3DLIGHT9 light;
-		ZeroMemory(&light, sizeof(light));
-
-		light.Type = D3DLIGHT_SPOT;
-		light.Ambient = *color * 0.f;
-		light.Diffuse = *color;
-		light.Specular = *color * 0.6f;
-		light.Position = *position;
-		light.Direction = *direction;
-		light.Range = 1000.0f;
-		light.Falloff = 1.0f;
-		light.Attenuation0 = 1.0f;
-		light.Attenuation1 = 0.f;
-		light.Attenuation2 = 0.f;
-		light.Theta = 0.4f;
-		light.Phi = 0.9f;
-		
-		return light;
-	}
-private:
-	const D3DCOLOR WHITE;
-	const D3DCOLOR BLACK;
-	const D3DCOLOR RED;
-	const D3DCOLOR GREEN;
-	const D3DCOLOR BLUE;
-	const D3DCOLOR YELLOW;
-	const D3DCOLOR CYAN;
-	const D3DCOLOR MAGENTA;
-
-	const D3DMATERIAL9 WHITE_MTRL;
-	const D3DMATERIAL9 RED_MTRL;
-	const D3DMATERIAL9 GREEN_MTRL;
-	const D3DMATERIAL9 BLUE_MTRL;
-	const D3DMATERIAL9 YELLOW_MTRL;
 
 private:
 	ID3DXMesh* objects_[4];

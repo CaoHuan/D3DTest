@@ -28,10 +28,10 @@ public:
 			return false;
 		}
 		
-		D3DXCreateTeapot(_pDevice, &objects_[0], 0);
-		D3DXCreateSphere(_pDevice, 1.f, 20, 20, &objects_[1], 0);
-		D3DXCreateTorus(_pDevice, .5f, 1.f, 20, 20, &objects_[2], 0);
-		D3DXCreateCylinder(_pDevice, .5f, .5f, 2.f, 20, 20, &objects_[3], 0);
+		D3DXCreateTeapot(pDevice_, &objects_[0], 0);
+		D3DXCreateSphere(pDevice_, 1.f, 20, 20, &objects_[1], 0);
+		D3DXCreateTorus(pDevice_, .5f, 1.f, 20, 20, &objects_[2], 0);
+		D3DXCreateCylinder(pDevice_, .5f, .5f, 2.f, 20, 20, &objects_[3], 0);
 
 		// build world matrices - position the objects in world space
 		D3DXMatrixTranslation(&worlds_[0], 0.f, 2.f, 0.f);
@@ -52,11 +52,11 @@ public:
 		D3DLIGHT9 point = InitPointLight(&pos, &c);
 
 		// set and enable the light
-		_pDevice->SetLight(0, &point);
-		_pDevice->LightEnable(0, true);
+		pDevice_->SetLight(0, &point);
+		pDevice_->LightEnable(0, true);
 
-		_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
-		_pDevice->SetRenderState(D3DRS_SPECULARENABLE, false);
+		pDevice_->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+		pDevice_->SetRenderState(D3DRS_SPECULARENABLE, false);
 
 		// set the projection matrix
 		D3DXMATRIX proj;
@@ -64,14 +64,14 @@ public:
 			&proj, D3DX_PI * 0.25f, (float)width / (float)height,
 			1.0f, 1000.f
 			);
-		_pDevice->SetTransform(D3DTS_PROJECTION, &proj);
+		pDevice_->SetTransform(D3DTS_PROJECTION, &proj);
 
 		return true;
 	}
 
 	virtual void Display(float timeDelta)
 	{
-		if (!_pDevice)
+		if (!pDevice_)
 		{
 			return;
 		}
@@ -104,23 +104,23 @@ public:
 		D3DXMATRIX v;
 		D3DXMatrixLookAtLH(&v, &pos, &target, &up);
 
-		_pDevice->SetTransform(D3DTS_VIEW, &v);
+		pDevice_->SetTransform(D3DTS_VIEW, &v);
 
 		// draw the scene
-		_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.f, 0);
-		_pDevice->BeginScene();
+		pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.f, 0);
+		pDevice_->BeginScene();
 		
 		for (int i = 0; i < 4; ++i)
 		{
 			// set material and world matrix for ith object,
 			// then render the ith object.
-			_pDevice->SetMaterial(&mtrls_[i]);
-			_pDevice->SetTransform(D3DTS_WORLD, &worlds_[i]);
+			pDevice_->SetMaterial(&mtrls_[i]);
+			pDevice_->SetTransform(D3DTS_WORLD, &worlds_[i]);
 			objects_[i]->DrawSubset(0);
 		}
 
-		_pDevice->EndScene();
-		_pDevice->Present(0, 0, 0, 0);
+		pDevice_->EndScene();
+		pDevice_->Present(0, 0, 0, 0);
 	}
 
 private:

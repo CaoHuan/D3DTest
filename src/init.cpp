@@ -15,12 +15,12 @@ public:
 
 	virtual void Display(float timeDelta)
 	{
-		if (_pDevice)
+		if (pDevice_)
 		{
-			_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+			pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 				D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
 
-			_pDevice->Present(0, 0, 0, 0);
+			pDevice_->Present(0, 0, 0, 0);
 		}
 	}
 	~Init()

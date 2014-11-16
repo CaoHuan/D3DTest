@@ -1,7 +1,7 @@
 #include "D3DBase.h"
 
 D3DBase::D3DBase() 
-	: _pDevice(NULL)
+	: pDevice_(NULL)
 	, WHITE(D3DCOLOR_XRGB(255, 255, 255))
 	, BLACK(D3DCOLOR_XRGB(0, 0, 0))
 	, RED(D3DCOLOR_XRGB(255, 0, 0))
@@ -21,7 +21,7 @@ D3DBase::D3DBase()
 
 D3DBase::~D3DBase()
 {
-	ReleaseD3DObject(_pDevice);
+	ReleaseD3DObject(pDevice_);
 }
 
 LRESULT CALLBACK D3DBase::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -143,13 +143,13 @@ bool D3DBase::Setup(HINSTANCE hInstance, int width, int height, bool windowed, D
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	hr = d3d9->CreateDevice(D3DADAPTER_DEFAULT,
-		deviceType, hwnd, vp, &d3dpp, &_pDevice);
+		deviceType, hwnd, vp, &d3dpp, &pDevice_);
 
 	if (FAILED(hr))
 	{
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 		hr = d3d9->CreateDevice(D3DADAPTER_DEFAULT,
-			deviceType, hwnd, vp, &d3dpp, &_pDevice);
+			deviceType, hwnd, vp, &d3dpp, &pDevice_);
 		if (FAILED(hr))
 		{
 			d3d9->Release();

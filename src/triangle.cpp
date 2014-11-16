@@ -32,7 +32,7 @@ public:
 			return false;
 		}
 
-		_pDevice->CreateVertexBuffer(3 * sizeof(Vertex),
+		pDevice_->CreateVertexBuffer(3 * sizeof(Vertex),
 			D3DUSAGE_WRITEONLY, FVF, D3DPOOL_DEFAULT, &triangle_, 0);
 		
 		Vertex* vertices;
@@ -50,31 +50,31 @@ public:
 		D3DXMATRIX v;
 
 		D3DXMatrixLookAtLH(&v, &position, &target, &up);
-		_pDevice->SetTransform(D3DTS_VIEW, &v);
+		pDevice_->SetTransform(D3DTS_VIEW, &v);
 
 		D3DXMATRIX proj;
 		D3DXMatrixPerspectiveFovLH(&proj,
 			D3DX_PI / 2, (float)width / (float)height, 1.f, 1000.f);
 
-		_pDevice->SetTransform(D3DTS_PROJECTION, &proj);
+		pDevice_->SetTransform(D3DTS_PROJECTION, &proj);
 
-		_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		pDevice_->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		pDevice_->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 		return true;
 	}
 
 	virtual void Display(float timeDelta)
 	{
-		if (!_pDevice)
+		if (!pDevice_)
 		{
 			return;
 		}
 
-		_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+		pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 			0xffffffff, 1.0f, 0);
 
-		_pDevice->BeginScene();
+		pDevice_->BeginScene();
 		static float x = 0.f;
 		x += timeDelta;
 		if (x >= 2* D3DX_PI)
@@ -84,16 +84,16 @@ public:
 		D3DXMATRIX matrix;
 		D3DXMatrixRotationX(&matrix, x);
 		
-		_pDevice->SetTransform(D3DTS_WORLD, &matrix);
+		pDevice_->SetTransform(D3DTS_WORLD, &matrix);
 
-		_pDevice->SetStreamSource(0, triangle_, 0, sizeof(Vertex));
+		pDevice_->SetStreamSource(0, triangle_, 0, sizeof(Vertex));
 
-		_pDevice->SetFVF(FVF);
+		pDevice_->SetFVF(FVF);
 
-		_pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+		pDevice_->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 
-		_pDevice->EndScene();
-		_pDevice->Present(0, 0, 0, 0);
+		pDevice_->EndScene();
+		pDevice_->Present(0, 0, 0, 0);
 
 	}
 private:

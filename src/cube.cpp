@@ -18,11 +18,11 @@ public:
 
 		// Create vertex and index buffers
 
-		_pDevice->CreateVertexBuffer(8 * sizeof(Vertex),
+		pDevice_->CreateVertexBuffer(8 * sizeof(Vertex),
 			D3DUSAGE_WRITEONLY, FVF,
 			D3DPOOL_MANAGED, &vb, 0);
 
-		_pDevice->CreateIndexBuffer(36 * sizeof(WORD),
+		pDevice_->CreateIndexBuffer(36 * sizeof(WORD),
 			D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_MANAGED,
 			&ib, 0);
 
@@ -83,24 +83,24 @@ public:
 		D3DXMATRIX v;
 
 		D3DXMatrixLookAtLH(&v, &position, &target, &up);
-		_pDevice->SetTransform(D3DTS_VIEW, &v);
+		pDevice_->SetTransform(D3DTS_VIEW, &v);
 
 		// set the projection matrix
 
 		D3DXMATRIX proj;
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
 			Width / Height, 1.0f, 1000.0f);
-		_pDevice->SetTransform(D3DTS_PROJECTION, &proj);
+		pDevice_->SetTransform(D3DTS_PROJECTION, &proj);
 
 		// switch to wireframe mode.
-		_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		pDevice_->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 		return true;
 	}
 
 	virtual void Display(float timeDelta)
 	{
-		if (!_pDevice)
+		if (!pDevice_)
 		{
 			return;
 		}
@@ -124,23 +124,23 @@ public:
 
 		// cobine x and y-axis rotation transformations
 		D3DXMATRIX p = Rx*Ry;
-		_pDevice->SetTransform(D3DTS_WORLD, &p);
+		pDevice_->SetTransform(D3DTS_WORLD, &p);
 
 		// draw the scene:
-		_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
+		pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
 
-		_pDevice->BeginScene();
+		pDevice_->BeginScene();
 
-		_pDevice->SetStreamSource(0, vb, 0, sizeof(Vertex));
-		_pDevice->SetIndices(ib);
-		_pDevice->SetFVF(FVF);
+		pDevice_->SetStreamSource(0, vb, 0, sizeof(Vertex));
+		pDevice_->SetIndices(ib);
+		pDevice_->SetFVF(FVF);
 
 		// draw cube
-		_pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+		pDevice_->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
-		_pDevice->EndScene();
+		pDevice_->EndScene();
 
-		_pDevice->Present(0, 0, 0, 0);
+		pDevice_->Present(0, 0, 0, 0);
 	}
 	~Cube(){
 	}

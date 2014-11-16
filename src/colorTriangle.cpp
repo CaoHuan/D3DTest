@@ -23,7 +23,7 @@ public:
 			return false;
 		}
 
-		_pDevice->CreateVertexBuffer(3 * sizeof(ColorVertex),
+		pDevice_->CreateVertexBuffer(3 * sizeof(ColorVertex),
 			D3DUSAGE_WRITEONLY, FVF, D3DPOOL_MANAGED,
 			&pTriangle, 0);
 		// FIll the buffer with the triangle data
@@ -40,43 +40,43 @@ public:
 		D3DXMATRIX proj;
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
 			Width / Height, 1.0f, 1000.0f);
-		_pDevice->SetTransform(D3DTS_PROJECTION, &proj);
+		pDevice_->SetTransform(D3DTS_PROJECTION, &proj);
 		// turn off lighting
 
-		_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+		pDevice_->SetRenderState(D3DRS_LIGHTING, false);
 		return true;
 	}
 
 	virtual void Display(float timeDelta)
 	{
-		if (!_pDevice)
+		if (!pDevice_)
 		{
 			return;
 		}
 
-		_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0);
-		_pDevice->BeginScene();
+		pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0);
+		pDevice_->BeginScene();
 
-		_pDevice->SetFVF(FVF);
+		pDevice_->SetFVF(FVF);
 
-		_pDevice->SetStreamSource(0, pTriangle, 0, sizeof(ColorVertex));
+		pDevice_->SetStreamSource(0, pTriangle, 0, sizeof(ColorVertex));
 
 		// draw the triangle to the left with flat shading
 		D3DXMatrixTranslation(&WorldMatrix, -1.0f, 0.0f, 0.0f);
-		_pDevice->SetTransform(D3DTS_WORLD, &WorldMatrix);
+		pDevice_->SetTransform(D3DTS_WORLD, &WorldMatrix);
 
-		_pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
-		_pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+		pDevice_->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
+		pDevice_->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 
 		// draw the triangle to the right with gouraud shading
 		D3DXMatrixTranslation(&WorldMatrix, 1.0f, 0.0f, 0.0f);
-		_pDevice->SetTransform(D3DTS_WORLD, &WorldMatrix);
+		pDevice_->SetTransform(D3DTS_WORLD, &WorldMatrix);
 
-		_pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
-		_pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+		pDevice_->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+		pDevice_->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 
-		_pDevice->EndScene();
-		_pDevice->Present(0, 0, 0, 0);
+		pDevice_->EndScene();
+		pDevice_->Present(0, 0, 0, 0);
 
 		return;
 	}

@@ -28,10 +28,10 @@ public:
 			return false;
 		}
 
-		D3DXCreateTeapot(_pDevice, &objects_[0], 0);
-		D3DXCreateSphere(_pDevice, 1.f, 20, 20, &objects_[1], 0);
-		D3DXCreateTorus(_pDevice, .5f, 1.f, 20, 20, &objects_[2], 0);
-		D3DXCreateCylinder(_pDevice, .5f, .5f, 2.f, 20, 20, &objects_[3], 0);
+		D3DXCreateTeapot(pDevice_, &objects_[0], 0);
+		D3DXCreateSphere(pDevice_, 1.f, 20, 20, &objects_[1], 0);
+		D3DXCreateTorus(pDevice_, .5f, 1.f, 20, 20, &objects_[2], 0);
+		D3DXCreateCylinder(pDevice_, .5f, .5f, 2.f, 20, 20, &objects_[3], 0);
 
 		D3DXMatrixTranslation(&worlds_[0], .0f, 2.f, 0.f);
 		D3DXMatrixTranslation(&worlds_[1], .0f, -2.f, 0.f);
@@ -60,13 +60,13 @@ public:
 		spot_ = InitSpotLight(&pos, &dir, &c);
 
 		// set and enable spotlight
-		_pDevice->SetLight(0, &spot_);
-		_pDevice->LightEnable(0, true);
+		pDevice_->SetLight(0, &spot_);
+		pDevice_->LightEnable(0, true);
 
 		// set light related render states
 
-		_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
-		_pDevice->SetRenderState(D3DRS_SPECULARENABLE, true);
+		pDevice_->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+		pDevice_->SetRenderState(D3DRS_SPECULARENABLE, true);
 
 		// position and aim the camera
 
@@ -75,7 +75,7 @@ public:
 		D3DXVECTOR3 up(0.f, 1.f, 0.f);
 		D3DXMATRIX V;
 		D3DXMatrixLookAtLH(&V, &position, &target, &up);
-		_pDevice->SetTransform(D3DTS_VIEW, &V);
+		pDevice_->SetTransform(D3DTS_VIEW, &V);
 
 
 		// set the projection matrix
@@ -83,13 +83,13 @@ public:
 		D3DXMATRIX proj;
 		D3DXMatrixPerspectiveFovLH(
 			&proj, D3DX_PI / 2, (float)width / (float)height, 1.0f, 1000.f);
-		_pDevice->SetTransform(D3DTS_PROJECTION, &proj);
+		pDevice_->SetTransform(D3DTS_PROJECTION, &proj);
 		return true;
 	}
 
 	virtual void Display(float timeDelta)
 	{
-		if (!_pDevice)
+		if (!pDevice_)
 		{
 			return;
 		}
@@ -108,26 +108,26 @@ public:
 			spot_.Direction.y += 0.5f * timeDelta;
 
 		// update the light 
-		_pDevice->SetLight(0, &spot_);
-		_pDevice->LightEnable(0, true);
+		pDevice_->SetLight(0, &spot_);
+		pDevice_->LightEnable(0, true);
 
 		//
 		// Draw the scene:
 		//
-		_pDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
-		_pDevice->BeginScene();
+		pDevice_->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+		pDevice_->BeginScene();
 
 		for (int i = 0; i < 4; i++)
 		{
 			// set material and world matrix for ith object, then render
 			// the ith object.
-			_pDevice->SetMaterial(&matrls_[i]);
-			_pDevice->SetTransform(D3DTS_WORLD, &worlds_[i]);
+			pDevice_->SetMaterial(&matrls_[i]);
+			pDevice_->SetTransform(D3DTS_WORLD, &worlds_[i]);
 			objects_[i]->DrawSubset(0);
 		}
 
-		_pDevice->EndScene();
-		_pDevice->Present(0, 0, 0, 0);
+		pDevice_->EndScene();
+		pDevice_->Present(0, 0, 0, 0);
 	}
 
 private:

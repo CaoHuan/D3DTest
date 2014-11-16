@@ -11,6 +11,11 @@
 					return 0;														\
 				}																	\
 
+#define CallBaseSetup if (!D3DBase::Setup(hInstance, width, height, windowed, deviceType) ) \
+						{																	\
+							return false;													\
+						}																	\
+
 const int Width = 640;
 const int Height = 480;
 

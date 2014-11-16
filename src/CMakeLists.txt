@@ -1,11 +1,10 @@
 # D3D个人练习管理
 cmake_minimum_required(VERSION 2.6)
-SET( CMAKE_BUILD_TYPE Debug )
+
 include(macros.cmake)
+
 #解决方案名
 project(Test)
-
-
 
 # 项目生成调试信息
 set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od /Oy- /MTd")
@@ -35,19 +34,25 @@ add_definitions(-DUNICODE -D_UNICODE)
 #set(file d3dUtility.h d3dUtility.cpp frame.cpp)
 set(BASE D3DBase.h D3DBase.cpp)
 
-# 添加一个项目
-addProject(colorTriangle colorTriangle.cpp)
-addProject(triangle triangle.cpp)
-addProject(tutorialCreate init.cpp)
-addProject(cube cube.cpp)
-addProject(teapot teapot.cpp)
-addProject(spotLight spotLight.cpp)
-addProject(pointLight pointLight.cpp)
 
-# 用file命令， 可以通配所有合适的文件， 而在其他的时候， 只是匹配第一个符合的文件
-#file(GLOB test *.cpp)
+# 第一章
+group(test01)
 
-set_target_properties(${projects} PROPERTIES FOLDER test)
+# 第二章
+group(test02)
 
+# 第三章
+group(test03)
+	addProject(tutorialCreate init.cpp)
+	addProject(teapot teapot.cpp)
+	addProject(triangle triangle.cpp)
+	addProject(cube cube.cpp)
+# 第四章
+group(test04)
+	addProject(colorTriangle colorTriangle.cpp)
 
-
+# 第五章
+group(test05)
+	addProject(spotLight spotLight.cpp)
+	addProject(pointLight pointLight.cpp)
+	addProject(directionalLight directionalLight.cpp)

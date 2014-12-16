@@ -16,8 +16,8 @@
 							return false;													\
 						}																	\
 
-const int Width = 640;
-const int Height = 480;
+extern const int Width;
+extern const int Height;
 
 class D3DBase
 {
@@ -117,6 +117,7 @@ protected:
 	const D3DMATERIAL9 BLUE_MTRL;
 	const D3DMATERIAL9 YELLOW_MTRL;
 };
+
 
 template<typename T>
 void ReleaseD3DObject(T* p)

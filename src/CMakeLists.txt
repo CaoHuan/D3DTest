@@ -57,3 +57,11 @@ group(test05)
 	addProject(pointLight pointLight.cpp)
 	addProject(directionalLight directionalLight.cpp)
 	addProject(litPyramid litPyramid.cpp)
+
+# 第六章
+group(test06)
+	addProject(texQuad texQuad.cpp)
+	addProject(texCube texCube.cpp)
+
+group(test07)
+	addProject(texAlpha texAlpha.cpp)

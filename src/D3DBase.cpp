@@ -1,5 +1,8 @@
 #include "D3DBase.h"
 
+const int Width = 640;
+const int Height = 480;
+
 D3DBase::D3DBase() 
 	: pDevice_(NULL)
 	, WHITE(D3DCOLOR_XRGB(255, 255, 255))

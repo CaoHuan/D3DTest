@@ -12,6 +12,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "E:\\oryol\\oryol"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "F:\\hugenstar\\JIANGHU\\trunk\\tdzm\\platform\\iOS"
 		}
 	]
 }

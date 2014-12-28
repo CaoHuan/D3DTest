@@ -65,3 +65,6 @@ group(test06)
 
 group(test07)
 	addProject(texAlpha texAlpha.cpp)
+
+group(test08)
+	addProject(stencilMirror stencilMirror.cpp)
